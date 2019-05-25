@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "core-js": "^2.6.5",
+    "izitoast": "^1.4.0",
     "sweetalert2": "^8.11.4",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.4",

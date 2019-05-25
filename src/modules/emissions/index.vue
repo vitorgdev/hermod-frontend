@@ -4,6 +4,7 @@
       <div class="col-md-4 mb-5">
         <div class="input-group">
           <input
+            data-cy="searchCourses"
             type="text"
             class="form-control"
             id="validationTooltipUsername"
@@ -27,6 +28,7 @@ import CardCoursesList from "./_components/CardCoursesList";
 import { mapGetters } from "vuex";
 import coursesStore from "../courses/_store";
 import numbersStore from "../numbers/_store";
+import swal from "sweetalert2";
 
 export default {
   components: { CardCoursesList },
@@ -59,24 +61,43 @@ export default {
       console.log(e);
     },
     async generateNumber(e) {
-      this.$swal({
-        title: "Você tem certeza?",
-        text: "Está gerando uma senha do curso " + e.name + "!",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Sim!",
-        cancelButtonText: "Não!"
-      }).then(async result => {
-        if (result.value) {
-          await this.$store.dispatch("$_numbers/generateNumber", {
-            name: e.name,
-            initials: e.initials
-          });
-          this.$swal("Senha gerada!", "", "success");
-        }
-      });
+      swal
+        .fire({
+          title: "Você tem certeza?",
+          text: "Está gerando uma senha do curso " + e.name + "!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Sim!",
+          cancelButtonText: "Não!"
+        })
+        .then(async result => {
+          if (result.value) {
+            try {
+              await this.$store.dispatch("$_numbers/generateNumber", {
+                name: e.name,
+                initials: e.initials,
+                type: e.type
+              });
+
+              swal.fire({
+                type: "success",
+                title: "Senha Gerada com Sucesso",
+                html: `A senha do curso <b>${e.name}</b> foi gerada!`,
+                timer: 2000,
+                customClass: {
+                  container: "handler-error"
+                },
+                onBeforeOpen: () => {
+                  swal.showLoading();
+                }
+              });
+            } catch (error) {
+              swal.fire("Senha gerada!", "", "error");
+            }
+          }
+        });
     }
   }
 };

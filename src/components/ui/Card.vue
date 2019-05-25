@@ -4,6 +4,7 @@
       <div class="col-md-12">
         <slot name="title"></slot>
         <i
+          :data-cy="`buttonCollapeMinus`"
           data-toggle="collapse"
           :href="'#cardCollapse' + identifier"
           role="button"
@@ -17,9 +18,7 @@
     </div>
     <div class="collapse show" :id="'cardCollapse' + identifier">
       <div class="card-body">
-        <p class="card-text">
-          <slot name="text"></slot>
-        </p>
+        <slot name="text"></slot>
       </div>
     </div>
   </div>
@@ -47,7 +46,6 @@ export default {
     padding: 9px 0px 9px 22px;
   }
   i {
-    margin-top: 7px;
     cursor: pointer;
   }
 }

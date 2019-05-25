@@ -7,13 +7,19 @@
         </template>
         <template slot="text">
           <button
+            :data-cy="`buttonNormalNumber`"
             type="button"
-            @click="getCourse(course)"
+            @click="getCourse(course, 'normal')"
             class="btn btn-primary btn-sm col-md-12"
           >
             Normal
           </button>
-          <button type="button" class="btn btn-secondary btn-sm col-md-12">
+          <button
+            :data-cy="`buttonPriorityNumber`"
+            type="button"
+            class="btn btn-secondary btn-sm col-md-12"
+            @click="getCourse(course, 'priority')"
+          >
             Prioridade
           </button>
         </template>
@@ -27,9 +33,8 @@ export default {
   components: { Card },
   props: { courses: { type: Array } },
   methods: {
-    getCourse(course) {
-      console.log("getcourse", course);
-
+    getCourse(course, type) {
+      course.type = type;
       this.$emit("geted-course", course);
     }
   }

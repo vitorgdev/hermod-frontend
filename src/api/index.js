@@ -2,6 +2,11 @@ import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
 
+import "izitoast/dist/css/iziToast.min.css";
+import iZtoast from "izitoast";
+
+import swal from "sweetalert2";
+
 const Api = {
   init() {
     Vue.use(VueAxios, axios);
@@ -21,16 +26,88 @@ const Api = {
   },
 
   handleError(error) {
-    const code = error.response.status;
+    console.log(error);
+
+    const code = error.status ? error.response.status : 0;
+    let timerInterval = "";
     switch (code) {
       case 500:
-        console.log(error.response.data);
+        swal
+          .fire({
+            type: "error",
+            title: "Oops...",
+            text: "O Servidor está fora do ar!",
+            timer: 2000,
+            customClass: {
+              container: "handler-error"
+            },
+            onBeforeOpen: () => {
+              swal.showLoading();
+            },
+            onClose: () => {
+              clearInterval(timerInterval);
+            }
+          })
+          .then(result => {
+            if (
+              // Read more about handling dismissals
+              result.dismiss === swal.DismissReason.timer
+            ) {
+              console.log("I was closed by the timer");
+            }
+          });
         break;
       case 404:
-        console.log(error.response.data);
+        swal
+          .fire({
+            type: "error",
+            title: "Oops...",
+            text: "Pagina não encontrada!",
+            timer: 2000,
+            customClass: {
+              container: "handler-error"
+            },
+            onBeforeOpen: () => {
+              swal.showLoading();
+            },
+            onClose: () => {
+              clearInterval(timerInterval);
+            }
+          })
+          .then(result => {
+            if (
+              // Read more about handling dismissals
+              result.dismiss === swal.DismissReason.timer
+            ) {
+              console.log("I was closed by the timer");
+            }
+          });
         break;
       case 0:
-        console.log(error.response.data);
+        swal
+          .fire({
+            type: "error",
+            title: "Oops...",
+            text: "O Servidor está fora do ar!",
+            timer: 2000,
+            customClass: {
+              container: "handler-error"
+            },
+            onBeforeOpen: () => {
+              swal.showLoading();
+            },
+            onClose: () => {
+              clearInterval(timerInterval);
+            }
+          })
+          .then(result => {
+            if (
+              // Read more about handling dismissals
+              result.dismiss === swal.DismissReason.timer
+            ) {
+              console.log("I was closed by the timer");
+            }
+          });
         break;
     }
     return Promise.reject(error);
