@@ -68,23 +68,23 @@ export default {
       features: [
         {
           name: "Emissão",
-          route: "emissoes"
+          route: "/emissoes"
         },
         {
           name: "Atendimento",
-          route: "atendimentos"
+          route: "/atendimentos"
         },
         {
           name: "Cursos",
-          route: "cursos"
+          route: "/cursos"
         },
         {
           name: "Usuário",
-          route: "usuarios"
+          route: "/usuarios"
         },
         {
           name: "Painel",
-          route: "painel"
+          route: "/painel"
         }
       ]
     };

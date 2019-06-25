@@ -22,6 +22,21 @@ export default new Router({
       component: () => import("@/modules/emissions")
     },
     {
+      path: "/cursos",
+      name: "cursos",
+      component: () => import("@/modules/courses"),
+      children: [
+        {
+          path: ":id/editar",
+          component: () => import("@/modules/courses/_components/edit")
+        },
+        {
+          path: "criar",
+          component: () => import("@/modules/courses/_components/create")
+        }
+      ]
+    },
+    {
       path: "/atendimentos",
       name: "atendimentos",
       component: () => import("@/views/Atendimento.vue")

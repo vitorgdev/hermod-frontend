@@ -26,6 +26,7 @@
 <script>
 export default {
   props: ["identifier"],
+
   data: function() {
     return {
       collapsed: false
@@ -33,20 +34,4 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
-.card {
-  transition: all 1s linear;
-  border: 0px solid transparent;
-  box-shadow: 0px 3px 6px rgba(136, 136, 136, 0.16);
-  .card-title {
-    font-size: 0.9rem;
-    box-shadow: 0px 3px 4px rgba(136, 136, 136, 0.16);
-    color: #707070;
-    background-color: #ffc85f;
-    padding: 9px 0px 9px 22px;
-  }
-  i {
-    cursor: pointer;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

@@ -2,9 +2,6 @@ import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
 
-import "izitoast/dist/css/iziToast.min.css";
-import iZtoast from "izitoast";
-
 import swal from "sweetalert2";
 
 const Api = {
@@ -121,7 +118,10 @@ const Api = {
   },
 
   get(resource, slug = "") {
-    return Vue.axios.get(`${resource}/${slug}`);
+    return new Promise(resolve => {
+      const result = Vue.axios.get(`${resource}/${slug}`);
+      resolve(result);
+    });
   },
 
   async post(resource, params) {
@@ -132,7 +132,10 @@ const Api = {
   },
 
   put(resource, id, params) {
-    return Vue.axios.put(`${resource}/${id}`, JSON.stringify(params));
+    return new Promise(resolve => {
+      const result = Vue.axios.put(`${resource}/${id}`, JSON.stringify(params));
+      resolve(result);
+    });
   },
 
   patch(resource, id, params) {
