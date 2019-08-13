@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg">
+  <nav class="navbar navbar-expand-lg mb-5">
     <div class="container">
       <a class="navbar-brand" href="#">hermod</a>
       <button
@@ -32,12 +32,31 @@
         <span class="navbar-text mr-4">
           Oi, Vitor!
         </span>
-        <img
-          width="39px"
-          src="@/assets/vitor.png"
-          class="rounded-circle avatar"
-          alt="..."
-        />
+        <div class="dropdown">
+          <a
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <img
+              width="39px"
+              src="@/assets/vitor.png"
+              class="rounded-circle avatar"
+              alt="..."
+            />
+          </a>
+          <div
+            class="dropdown-menu dropdown-menu-right"
+            aria-labelledby="dropdownMenuButton"
+          >
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#"
+              >Something else heresadasdadadasdasd</a
+            >
+          </div>
+        </div>
       </div>
     </div>
   </nav>
@@ -49,23 +68,23 @@ export default {
       features: [
         {
           name: "Emissão",
-          route: "emissoes"
+          route: "/emissoes"
         },
         {
           name: "Atendimento",
-          route: "atendimentos"
+          route: "/atendimentos"
         },
         {
           name: "Cursos",
-          route: "cursos"
+          route: "/cursos"
         },
         {
           name: "Usuário",
-          route: "usuarios"
+          route: "/usuarios"
         },
         {
           name: "Painel",
-          route: "painel"
+          route: "/painel"
         }
       ]
     };
@@ -82,19 +101,19 @@ nav {
   &.navbar {
     background-color: #ffc85f;
     .navbar-brand {
-      font-size: 21px;
+      font-size: 1.1rem;
       color: #707070;
       font-weight: 600;
     }
     .navbar-text {
-      font-size: 14px;
+      font-size: 10px;
       color: #707070;
     }
     ul {
       margin-left: 8rem !important;
       .nav-item {
         .nav-link {
-          font-size: 17px;
+          font-size: 0.8rem;
           color: #707070;
           &:before {
             -ms-transform: scale(0); /* IE 9 */
@@ -104,7 +123,7 @@ nav {
             border-top: 5px solid transparent;
             display: block;
             position: relative;
-            top: 40px;
+            top: 35px;
             margin: 0 auto;
             width: 100%;
             content: "";
