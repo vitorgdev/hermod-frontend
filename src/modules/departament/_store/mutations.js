@@ -10,13 +10,15 @@ const UPDATE = (state, departament) => {
   state.departament = departament;
 };
 
+const STORE = (state, departament) => {
+  state.departaments.push(departament.data);
+};
+
 const REMOVE = (state, departament) => {
   let index = state.departaments.findIndex(
     element => element._id == departament.data._id
   );
   state.departaments.splice(index, 1);
-  console.log(state.departaments);
-  return;
   state.departament = departament;
 };
 
@@ -28,5 +30,6 @@ export default {
   SET_ALL,
   UPDATE,
   SET,
-  REMOVE
+  REMOVE,
+  STORE
 };

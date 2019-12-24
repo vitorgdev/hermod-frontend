@@ -2,6 +2,13 @@
   <Card>
     <template slot="title">Departament View</template>
     <template slot="text">
+      <b-button
+        @click="create"
+        size="sm"
+        variant="outline-add"
+        class="float-right"
+        >+</b-button
+      >
       <Table
         @remove="remove"
         :refresh="componentKey"
@@ -56,6 +63,9 @@ export default {
     },
     remove(id) {
       this.$store.dispatch("$_departaments/remove", id);
+    },
+    create() {
+      this.$router.push({ path: `${this.$route.path}/create` });
     }
   },
 

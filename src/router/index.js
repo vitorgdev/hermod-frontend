@@ -22,7 +22,7 @@ export default new Router({
           component: () => import("@/modules/departament/_components/edit")
         },
         {
-          path: "criar",
+          path: "create",
           component: () => import("@/modules/departament/_components/create")
         }
       ]

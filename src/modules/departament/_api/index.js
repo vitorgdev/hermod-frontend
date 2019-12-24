@@ -2,6 +2,13 @@ import Api from "@/api";
 
 const mainRoute = "departaments";
 
+const store = data => {
+  return new Promise(async resolve => {
+    const result = await Api.post(mainRoute, data);
+    resolve(result.data);
+  });
+};
+
 const fetch = () => {
   return new Promise(async resolve => {
     const result = await Api.query(mainRoute);
@@ -30,4 +37,4 @@ const get = id => {
   });
 };
 
-export default { fetch, get, put, remove };
+export default { fetch, get, put, remove, store };

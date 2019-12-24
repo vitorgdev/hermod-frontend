@@ -1,5 +1,10 @@
 import api from "../_api";
 
+const store = async (context, data) => {
+  const result = await api.store(data);
+  context.commit("STORE", result);
+};
+
 const list = async context => {
   const result = await api.fetch();
   console.log(result);
@@ -26,5 +31,6 @@ export default {
   list,
   edit,
   get,
-  remove
+  remove,
+  store
 };

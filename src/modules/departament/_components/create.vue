@@ -4,53 +4,66 @@
       v-model="modalShow"
       id="modal-prevent-closing"
       ref="modal"
-      title="Submit Your Name"
-      @show="resetModal"
+      title="Edição de Curso"
       @hidden="resetModal"
-      @ok="handleOk"
+      @ok="sendData"
     >
-      asdasd
+      <b-row>
+        <b-col md="12">
+          <label for="input-live">Departament:</label>
+          <b-form-input
+            v-model="departament.data.name"
+            placeholder="Enter your name"
+          ></b-form-input>
+        </b-col>
+
+        <b-col md="6">
+          <label for="input-live">Initials:</label>
+          <b-form-input
+            v-model="departament.data.initials"
+            placeholder="Enter your name"
+          ></b-form-input>
+        </b-col>
+
+        <b-col>
+          <label for="input-live">Status:</label>
+          <b-form-checkbox
+            v-model="departament.data.status"
+            switch
+          ></b-form-checkbox>
+        </b-col>
+      </b-row>
     </b-modal>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      modalShow: false
+      modalShow: false,
+      departament: {
+        data: {
+          name: "",
+          initials: "",
+          status: false
+        }
+      }
     };
   },
   mounted() {
     this.modalShow = true;
   },
   methods: {
-    checkFormValidity() {
-      const valid = this.$refs.form.checkValidity();
-      this.nameState = valid ? "valid" : "invalid";
-      return valid;
+    sendData() {
+      var form = this.departament.data;
+      this.$store.dispatch("$_departaments/store", form);
     },
     resetModal() {
+      this.$router.push("/departaments");
       this.name = "";
       this.nameState = null;
-    },
-    handleOk(bvModalEvt) {
-      // Prevent modal from closing
-      bvModalEvt.preventDefault();
-      // Trigger submit handler
-      this.handleSubmit();
-    },
-    handleSubmit() {
-      // Exit when the form isn't valid
-      if (!this.checkFormValidity()) {
-        return;
-      }
-      // Push the name to submitted names
-      this.submittedNames.push(this.name);
-      // Hide the modal manually
-      this.$nextTick(() => {
-        this.$refs.modal.hide();
-      });
     }
   }
 };
