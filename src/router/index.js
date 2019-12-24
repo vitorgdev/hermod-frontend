@@ -8,31 +8,22 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ "@/modules/courses")
+      path: "/queue",
+      name: "queue",
+      component: () => import("@/modules/queue")
     },
     {
-      path: "/emissoes",
-      name: "emissoes",
-      component: () => import("@/modules/emissions")
-    },
-    {
-      path: "/cursos",
-      name: "cursos",
-      component: () => import("@/modules/courses"),
+      path: "/departaments",
+      name: "departament",
+      component: () => import("@/modules/departament"),
       children: [
         {
           path: ":id/editar",
-          component: () => import("@/modules/courses/_components/edit")
+          component: () => import("@/modules/departament/_components/edit")
         },
         {
           path: "criar",
-          component: () => import("@/modules/courses/_components/create")
+          component: () => import("@/modules/departament/_components/create")
         }
       ]
     },

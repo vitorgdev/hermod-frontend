@@ -3,8 +3,8 @@ import getters from "./getters";
 import mutations from "./mutations";
 
 const state = {
-  courses: [],
-  course: []
+  departaments: [],
+  departament: []
 };
 
 export default {

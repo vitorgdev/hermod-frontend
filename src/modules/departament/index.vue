@@ -1,11 +1,12 @@
 <template>
   <Card>
-    <template slot="title">
-      Visualização de Curso
-    </template>
+    <template slot="title">Departament View</template>
     <template slot="text">
-      <Table :fields="fields" :items="courses.docs"></Table>
-
+      <Table
+        :refresh="componentKey"
+        :fields="fields"
+        :items="departaments"
+      ></Table>
       <router-view></router-view>
     </template>
   </Card>
@@ -18,22 +19,23 @@ import Table from "../../components/ui/Table";
 import Card from "../../components/ui/Card";
 
 export default {
-  name: "CoursesModule",
-  computed: { ...mapGetters({ courses: "$_courses/courses" }) },
+  name: "DepartamentModule",
+  computed: { ...mapGetters({ departaments: "$_departaments/departaments" }) },
   data: function() {
     return {
+      componentKey: 0,
       fields: [
-        { key: "stats", label: "Situação" },
-        { key: "name", label: "Nome" },
+        { key: "status", label: "Status" },
+        { key: "name", label: "Name" },
         {
           key: "initials",
-          label: "Sigla ",
+          label: "Initials",
           sortable: true,
           class: "text-center"
         },
         {
           key: "createdAt",
-          label: "Data de Criação",
+          label: "Created At",
           sortable: true,
           sortDirection: "desc"
         },
@@ -46,15 +48,29 @@ export default {
     Card
   },
 
+  methods: {
+    forceRerender() {
+      this.componentKey += 1;
+      this.$forceUpdate();
+    }
+  },
+
   created() {
-    const STORE_KEY = "$_courses";
+    const STORE_KEY = "$_departaments";
     if (!(STORE_KEY in this.$store._modules.root._children)) {
       this.$store.registerModule(STORE_KEY, store);
     }
   },
 
   mounted() {
-    this.$store.dispatch("$_courses/getCourses");
+    this.$store.dispatch("$_departaments/list");
+  },
+
+  watch: {
+    $route(to, from) {
+      this.forceRerender();
+      this.$forceUpdate();
+    }
   }
 };
 </script>

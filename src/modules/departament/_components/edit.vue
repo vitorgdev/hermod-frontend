@@ -8,27 +8,30 @@
       @hidden="resetModal"
       @ok="sendData"
     >
-      <b-row>
-        <b-col md="7">
-          <label for="input-live">Curso:</label>
+      <b-row v-if="departament.data">
+        <b-col md="12">
+          <label for="input-live">Departament:</label>
           <b-form-input
-            v-model="course.name"
+            v-model="departament.data.name"
             placeholder="Enter your name"
           ></b-form-input>
         </b-col>
 
-        <b-col md="2">
-          <label for="input-live">Sigla:</label>
+        <b-col md="6">
+          <label for="input-live">Initials:</label>
           <b-form-input
-            v-model="course.initials"
+            v-model="departament.data.initials"
             placeholder="Enter your name"
           ></b-form-input>
         </b-col>
 
         <b-col>
-          <label for="input-live">Situação:</label>
-          <b-form-checkbox v-model="course.stats" :name="course._id" switch>
-          </b-form-checkbox>
+          <label for="input-live">Status:</label>
+          <b-form-checkbox
+            v-model="departament.data.status"
+            :name="departament.data._id"
+            switch
+          ></b-form-checkbox>
         </b-col>
       </b-row>
     </b-modal>
@@ -43,21 +46,21 @@ export default {
       modalShow: false
     };
   },
-  computed: { ...mapGetters({ course: "$_courses/course" }) },
+  computed: { ...mapGetters({ departament: "$_departaments/departament" }) },
   mounted() {
-    this.$store.dispatch("$_courses/getCourse", this.$route.params.id);
+    this.$store.dispatch("$_departaments/get", this.$route.params.id);
     this.modalShow = true;
   },
   methods: {
     sendData() {
-      var form = this.course;
+      var form = this.departament.data;
       delete form.createdAt;
       delete form.__v;
       console.log(form);
-      this.$store.dispatch("$_courses/editCourse", form);
+      this.$store.dispatch("$_departaments/edit", form);
     },
     resetModal() {
-      this.$router.push({ path: "/cursos" });
+      this.$router.push("/departaments");
       this.name = "";
       this.nameState = null;
     }

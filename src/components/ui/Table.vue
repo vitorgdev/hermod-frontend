@@ -1,25 +1,24 @@
 <template>
-  <b-table small hover :fields="fields" :items="items">
-    <template slot="actions" slot-scope="data">
+  <b-table ref="table" small hover :fields="fields" :items="items">
+    <template v-slot:cell(actions)="row">
       <b-button
         size="sm"
         class="mr-1"
-        @click="editRoute(data.item._id)"
+        @click="editRoute(row.item._id)"
         variant="outline-primary"
-        ><i class="far fa-edit"></i>
+      >
+        <i class="far fa-edit"></i>
       </b-button>
-      <b-button size="sm" variant="outline-danger"
-        ><i class="far fa-trash-alt"></i>
+      <b-button size="sm" variant="outline-danger">
+        <i class="far fa-trash-alt"></i>
       </b-button>
     </template>
-    <template slot="stats" slot-scope="data">
+    <template v-slot:cell(status)="row">
       <b-form-checkbox
-        :value="data.item._id"
-        v-model="selected"
-        :name="data.item._id"
+        v-model="row.item.status"
+        :name="row.item._id"
         switch
-      >
-      </b-form-checkbox>
+      ></b-form-checkbox>
     </template>
   </b-table>
 </template>

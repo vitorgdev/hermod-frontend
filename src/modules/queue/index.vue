@@ -5,7 +5,6 @@
 <script>
 import { mapGetters } from "vuex";
 import store from "./_store";
-import ChatList from "./_components/ChatList";
 
 export default {
   name: "ChatModule",

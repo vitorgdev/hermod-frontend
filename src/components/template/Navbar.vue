@@ -15,23 +15,16 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
-          <li
-            v-for="(feature, index) in features"
-            :key="index"
-            class="nav-item"
-          >
+          <li v-for="(feature, index) in features" :key="index" class="nav-item">
             <router-link
               :to="feature.route"
               class="nav-link"
               :class="index != 0 ? 'ml-5' : ''"
               href="#"
-              >{{ feature.name }}</router-link
-            >
+            >{{ feature.name }}</router-link>
           </li>
         </ul>
-        <span class="navbar-text mr-4">
-          Oi, Vitor!
-        </span>
+        <span class="navbar-text mr-4">Oi, Vitor!</span>
         <div class="dropdown">
           <a
             id="dropdownMenuButton"
@@ -39,22 +32,12 @@
             aria-haspopup="true"
             aria-expanded="false"
           >
-            <img
-              width="39px"
-              src="@/assets/vitor.png"
-              class="rounded-circle avatar"
-              alt="..."
-            />
+            <img width="39px" src="@/assets/vitor.png" class="rounded-circle avatar" alt="..." />
           </a>
-          <div
-            class="dropdown-menu dropdown-menu-right"
-            aria-labelledby="dropdownMenuButton"
-          >
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="#">Action</a>
             <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#"
-              >Something else heresadasdadadasdasd</a
-            >
+            <a class="dropdown-item" href="#">Something else heresadasdadadasdasd</a>
           </div>
         </div>
       </div>
@@ -75,8 +58,8 @@ export default {
           route: "/atendimentos"
         },
         {
-          name: "Cursos",
-          route: "/cursos"
+          name: "Departaments",
+          route: "/departaments"
         },
         {
           name: "Usuário",
