@@ -142,7 +142,7 @@ const Api = {
     return Vue.axios.patch(`${resource}/${id}`, JSON.stringify(params));
   },
 
-  delete(resource, id) {
+  async delete(resource, id) {
     return new Promise(resolve => {
       const result = Vue.axios.delete(`${resource}/${id}`);
       resolve(result);

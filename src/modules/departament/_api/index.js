@@ -16,6 +16,13 @@ const put = (id, data) => {
   });
 };
 
+const remove = id => {
+  return new Promise(async resolve => {
+    const result = await Api.delete(mainRoute, id);
+    resolve(result.data);
+  });
+};
+
 const get = id => {
   return new Promise(async resolve => {
     const result = await Api.get(mainRoute, id);
@@ -23,4 +30,4 @@ const get = id => {
   });
 };
 
-export default { fetch, get, put };
+export default { fetch, get, put, remove };

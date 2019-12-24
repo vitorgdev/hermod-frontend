@@ -12,6 +12,11 @@ const edit = async (context, data) => {
   context.commit("UPDATE", result);
 };
 
+const remove = async (context, id) => {
+  const result = await api.remove(id);
+  context.commit("REMOVE", result);
+};
+
 const get = async (context, id) => {
   const result = await api.get(id);
   context.commit("SET", result);
@@ -20,5 +25,6 @@ const get = async (context, id) => {
 export default {
   list,
   edit,
-  get
+  get,
+  remove
 };

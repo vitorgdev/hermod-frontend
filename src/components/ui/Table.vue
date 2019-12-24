@@ -4,12 +4,16 @@
       <b-button
         size="sm"
         class="mr-1"
-        @click="editRoute(row.item._id)"
+        @click="edit(row.item._id)"
         variant="outline-primary"
       >
         <i class="far fa-edit"></i>
       </b-button>
-      <b-button size="sm" variant="outline-danger">
+      <b-button
+        size="sm"
+        variant="outline-danger"
+        @click="remove(row.item._id)"
+      >
         <i class="far fa-trash-alt"></i>
       </b-button>
     </template>
@@ -23,6 +27,7 @@
   </b-table>
 </template>
 <script>
+import swal from "sweetalert2";
 export default {
   data() {
     return {
@@ -37,8 +42,26 @@ export default {
     }
   },
   methods: {
-    editRoute(id) {
+    edit(id) {
       this.$router.push({ path: `${this.$route.path}/${id}/editar` });
+    },
+
+    remove(id) {
+      swal
+        .fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+        })
+        .then(result => {
+          if (result.value) {
+            this.$emit("remove", id);
+          }
+        });
     }
   },
   props: { items: { type: Array }, fields: { type: Array } }

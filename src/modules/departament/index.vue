@@ -3,6 +3,7 @@
     <template slot="title">Departament View</template>
     <template slot="text">
       <Table
+        @remove="remove"
         :refresh="componentKey"
         :fields="fields"
         :items="departaments"
@@ -52,6 +53,9 @@ export default {
     forceRerender() {
       this.componentKey += 1;
       this.$forceUpdate();
+    },
+    remove(id) {
+      this.$store.dispatch("$_departaments/remove", id);
     }
   },
 
