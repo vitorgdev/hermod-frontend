@@ -5,3 +5,8 @@
   padding: 0px 0.6rem;
   font-size: 1.3rem;
 }
+
+.btn-outline-default {
+  color: $hermod-card-header-background !important;
+  border: 1px solid $hermod-card-header-background;
+}

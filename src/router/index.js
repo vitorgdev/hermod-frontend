@@ -8,6 +8,14 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: "/auth",
+      name: "auth",
+      component: () => import("@/modules/auth"),
+      meta: {
+        template: "blank"
+      }
+    },
+    {
       path: "/queue",
       name: "queue",
       component: () => import("@/modules/queue")
