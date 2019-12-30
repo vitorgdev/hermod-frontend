@@ -1,28 +1,18 @@
 <template>
   <b-table ref="table" small hover :fields="fields" :items="items">
     <template v-slot:cell(actions)="row">
-      <b-button
-        size="sm"
-        class="mr-1"
-        @click="edit(row.item._id)"
-        variant="outline-primary"
-      >
+      <b-button size="sm" class="mr-1" @click="edit(row.item._id)" variant="outline-primary">
         <i class="far fa-edit"></i>
       </b-button>
-      <b-button
-        size="sm"
-        variant="outline-danger"
-        @click="remove(row.item._id)"
-      >
+      <b-button size="sm" class="mr-1" variant="outline-danger" @click="remove(row.item._id)">
         <i class="far fa-trash-alt"></i>
+      </b-button>
+      <b-button size="sm" variant="outline-secondary" @click="view(row.item._id)">
+        <i class="far fa-eye"></i>
       </b-button>
     </template>
     <template v-slot:cell(status)="row">
-      <b-form-checkbox
-        v-model="row.item.status"
-        :name="row.item._id"
-        switch
-      ></b-form-checkbox>
+      <b-form-checkbox v-model="row.item.status" :name="row.item._id" switch></b-form-checkbox>
     </template>
   </b-table>
 </template>
@@ -43,7 +33,11 @@ export default {
   },
   methods: {
     edit(id) {
-      this.$router.push({ path: `${this.$route.path}/${id}/editar` });
+      this.$router.push({ path: `${this.$route.path}/${id}/edit` });
+    },
+
+    view(id) {
+      this.$router.push({ path: `${this.$route.path}/${id}/view` });
     },
 
     remove(id) {

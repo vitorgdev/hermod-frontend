@@ -18,12 +18,16 @@ export default new Router({
       component: () => import("@/modules/departament"),
       children: [
         {
-          path: ":id/editar",
+          path: ":id/edit",
           component: () => import("@/modules/departament/_components/edit")
         },
         {
           path: "create",
           component: () => import("@/modules/departament/_components/create")
+        },
+        {
+          path: ":id/view",
+          component: () => import("@/modules/departament/_components/view")
         }
       ]
     },
