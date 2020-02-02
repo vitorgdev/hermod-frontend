@@ -10,12 +10,20 @@
       <b-row v-if="departament.data">
         <b-col md="12">
           <label for="input-live">Departament:</label>
-          <b-form-input disabled v-model="departament.data.name" placeholder="Enter your name"></b-form-input>
+          <b-form-input
+            disabled
+            v-model="departament.data.name"
+            placeholder="Enter your name"
+          ></b-form-input>
         </b-col>
 
         <b-col md="6">
           <label for="input-live">Initials:</label>
-          <b-form-input disabled v-model="departament.data.initials" placeholder="Enter your name"></b-form-input>
+          <b-form-input
+            disabled
+            v-model="departament.data.initials"
+            placeholder="Enter your name"
+          ></b-form-input>
         </b-col>
 
         <b-col>

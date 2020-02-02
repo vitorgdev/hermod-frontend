@@ -23,7 +23,7 @@ export default {
     NavBar
   },
   watch: {
-    $route(newVal, oldVal) {
+    $route(newVal) {
       if (newVal.meta.template === "blank") {
         this.blank = true;
       } else {

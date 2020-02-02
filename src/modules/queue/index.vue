@@ -8,9 +8,6 @@ import store from "./_store";
 
 export default {
   name: "ChatModule",
-  components: {
-    ChatList
-  },
   computed: {
     ...mapGetters({
       messages: "$_chat/messages"

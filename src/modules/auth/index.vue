@@ -31,7 +31,9 @@
                   placeholder="password"
                 ></b-form-input>
               </b-form-group>
-              <b-button @click="submit" variant="outline-default">Login</b-button>
+              <b-button @click="submit" variant="outline-default"
+                >Login</b-button
+              >
             </b-form>
           </b-card-text>
         </b-card>
