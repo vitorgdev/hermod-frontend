@@ -18,7 +18,7 @@ vulnerabilities check:
     - yarn install
     - yarn run scan
 
-build pistorium:
+build hermod:
   stage: package
   cache:
     key: site-package
@@ -38,7 +38,7 @@ build pistorium:
 deploy to develop:
   stage: deploy
   variables:
-    CNAME: develop-pistorium.surge.sh
+    CNAME: develop-hermod.surge.sh
     GIT_STRATEGY: none
   cache:
     key: site-package
@@ -60,7 +60,7 @@ deploy to develop:
 deploy to release:
   stage: deploy
   variables:
-    CNAME: $CI_COMMIT_REF_SLUG.pistorium.surge.sh
+    CNAME: $CI_COMMIT_REF_SLUG.hermod.surge.sh
     GIT_STRATEGY: none
   cache:
     key: site-package
@@ -83,7 +83,7 @@ deploy to release:
 turnoff:
   stage: deploy
   variables:
-    CNAME: $CI_COMMIT_REF_SLUG.pistorium.surge.sh
+    CNAME: $CI_COMMIT_REF_SLUG.hermod.surge.sh
     GIT_STRATEGY: none
   before_script:
     - yarn global add surge
@@ -100,7 +100,7 @@ turnoff:
 deploy to production:
   stage: deploy
   variables:
-    CNAME: pistorium.surge.sh
+    CNAME: hermod.surge.sh
     GIT_STRATEGY: none
   cache:
     key: site-package
