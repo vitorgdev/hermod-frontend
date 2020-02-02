@@ -14,9 +14,14 @@ stages:
 
 vulnerabilities check:
   stage: test
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    policy: push
+    paths:
+      - ./node_modules
   script:
     - yarn install
-    - yarn run scan
+    - yarn scan
 
 build hermod:
   stage: package
@@ -25,6 +30,10 @@ build hermod:
     policy: push
     paths:
       - ./dist
+    key: ${CI_COMMIT_REF_SLUG}
+    policy: pull
+    paths:
+      - ./node_modules
   artifacts:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
     when: always
