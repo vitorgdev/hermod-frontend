@@ -23,7 +23,7 @@ vulnerabilities check:
     - yarn install
     - yarn scan
 
-build hermod:
+build hermod: &build
   stage: package
   cache:
     key: site-package
@@ -41,10 +41,9 @@ build hermod:
     paths:
       - ./dist
   script:
-    - yarn install
     - yarn build
 
-deploy to develop:
+deploy to develop: &deploy
   stage: deploy
   variables:
     CNAME: develop-hermod.surge.sh
@@ -58,72 +57,36 @@ deploy to develop:
     - yarn global add surge
   script:
     - surge --project ./dist --domain ${CNAME}
-  after_script:
-    - whoami
   environment:
     name: develop
     url: http://${CNAME}
   only:
     - develop
 
-deploy to release:
-  stage: deploy
+deploy to release: &deploy-release
+  <<: *deploy
   variables:
     CNAME: $CI_COMMIT_REF_SLUG.hermod.surge.sh
-    GIT_STRATEGY: none
-  cache:
-    key: site-package
-    policy: pull
-    paths:
-      - ./dist
-  before_script:
-    - yarn global add surge
-  script:
-    - surge --project ./dist --domain ${CNAME}
-  after_script:
-    - whoami
   environment:
     name: review/$CI_COMMIT_REF_SLUG
-    url: http://${CNAME}
     on_stop: turnoff
   only:
     - /^release-.*$/
 
 turnoff:
-  stage: deploy
-  variables:
-    CNAME: $CI_COMMIT_REF_SLUG.hermod.surge.sh
-    GIT_STRATEGY: none
-  before_script:
-    - yarn global add surge
+  <<: *deploy-release
   script:
     - surge teardown ${CNAME}
   when: manual
   environment:
     name: review/$CI_COMMIT_REF_SLUG
-    url: http://${CNAME}
     action: stop
-  only:
-    - /^release-.*$/
 
 deploy to production:
-  stage: deploy
+  <<: *deploy
   variables:
     CNAME: hermod.surge.sh
-    GIT_STRATEGY: none
-  cache:
-    key: site-package
-    policy: pull
-    paths:
-      - ./dist
-  before_script:
-    - yarn global add surge
-  script:
-    - surge --project ./dist --domain ${CNAME}
-  after_script:
-    - whoami
   environment:
     name: production
-    url: http://${CNAME}
   only:
     - master
