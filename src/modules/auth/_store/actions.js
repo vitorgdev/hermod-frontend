@@ -1,36 +1,10 @@
 import api from "../_api";
 
-const store = async (context, data) => {
+const auth = async (context, data) => {
   const result = await api.store(data);
-  context.commit("STORE", result);
-};
-
-const list = async context => {
-  const result = await api.fetch();
-  console.log(result);
-
-  context.commit("SET_ALL", result.data);
-};
-
-const edit = async (context, data) => {
-  const result = await api.put(data._id, data);
-  context.commit("UPDATE", result);
-};
-
-const remove = async (context, id) => {
-  const result = await api.remove(id);
-  context.commit("REMOVE", result);
-};
-
-const get = async (context, id) => {
-  const result = await api.get(id);
-  context.commit("SET", result);
+  context.commit("SET_USER_LOGGED_IN", result);
 };
 
 export default {
-  list,
-  edit,
-  get,
-  remove,
-  store
+  auth
 };

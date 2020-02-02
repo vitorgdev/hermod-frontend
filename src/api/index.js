@@ -2,6 +2,8 @@ import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
 
+import jwt from "./jwt";
+
 import swal from "sweetalert2";
 
 const Api = {
@@ -17,6 +19,7 @@ const Api = {
   setupHeaders() {
     Vue.axios.defaults.headers.common["Content-Type"] = "application/json";
     Vue.axios.defaults.headers.common["Accept"] = "application/json";
+    Vue.axios.defaults.headers.common["Authorization"] = `Bearer ${jwt.get()}`;
     ["get", "post", "put", "patch"].forEach(function(method) {
       Vue.axios.defaults.headers[method]["Content-Type"] = "application/json";
     });
@@ -139,7 +142,13 @@ const Api = {
   },
 
   patch(resource, id, params) {
-    return Vue.axios.patch(`${resource}/${id}`, JSON.stringify(params));
+    return new Promise(resolve => {
+      const result = Vue.axios.patch(
+        `${resource}/${id}`,
+        JSON.stringify(params)
+      );
+      resolve(result);
+    });
   },
 
   async delete(resource, id) {

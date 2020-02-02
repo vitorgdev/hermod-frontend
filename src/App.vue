@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="blank ? 'with-image' : ''">
     <NavBar v-if="!blank" />
     <div class="container" :style="blank ? 'height: 100%;' : ''">
       <transition name="fade" mode="out-in">

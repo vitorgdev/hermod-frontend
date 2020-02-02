@@ -6,10 +6,11 @@ import Api from "./api";
 import BootstrapVue from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
-
+import Vuelidate from "vuelidate";
 import "./assets/scss/hermod.scss";
 
 Vue.use(BootstrapVue);
+Vue.use(Vuelidate);
 
 import VueSweetalert2 from "vue-sweetalert2";
 

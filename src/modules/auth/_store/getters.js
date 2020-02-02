@@ -1,7 +1,5 @@
-const departaments = state => state.departaments;
-const departament = state => state.departament;
+const userLoggedIn = state => state.userLoggedIn;
 
 export default {
-  departaments,
-  departament
+  userLoggedIn
 };
