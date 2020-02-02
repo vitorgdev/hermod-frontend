@@ -16,6 +16,10 @@ export default new Router({
       }
     },
     {
+      path: "/",
+      redirect: "/auth"
+    },
+    {
       path: "/queue",
       name: "queue",
       component: () => import("@/modules/queue")
