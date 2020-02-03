@@ -2,7 +2,7 @@
   <b-row class="justify-content-md-center h-100" align-v="center">
     <b-col cols="4" class="mx-auto">
       <b-card-group class="login" deck>
-        <b-card header="login" header-tag="header">
+        <b-card header="Auth" header-tag="header">
           <b-card-text>
             <b-form>
               <b-form-group
@@ -31,9 +31,7 @@
                   placeholder="password"
                 ></b-form-input>
               </b-form-group>
-              <b-button @click="submit" variant="outline-default"
-                >Login</b-button
-              >
+              <b-button @click="submit" variant="outline-default">Login</b-button>
             </b-form>
           </b-card-text>
         </b-card>
