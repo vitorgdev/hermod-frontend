@@ -52,12 +52,15 @@ export default {
     this.modalShow = true;
   },
   methods: {
-    sendData() {
+    async sendData(bvModalEvt) {
+      bvModalEvt.preventDefault();
       var form = this.departament.data;
       delete form.createdAt;
       delete form.__v;
-      console.log(form);
-      this.$store.dispatch("$_departaments/edit", form);
+      await this.$store.dispatch("$_departaments/edit", form);
+      this.$nextTick(() => {
+        this.$bvModal.hide("modal-prevent-closing");
+      });
     },
     resetModal() {
       this.$router.push("/departaments");
