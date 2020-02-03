@@ -76,7 +76,10 @@ export default {
         });
     }
   },
-  props: { items: { type: Array }, fields: { type: Array } }
+  props: {
+    items: { type: Array },
+    fields: { type: Array }
+  }
 };
 </script>
 <style lang="scss">
