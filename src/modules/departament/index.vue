@@ -82,7 +82,7 @@ export default {
   },
 
   watch: {
-    $route(newVal, oldVal) {
+    $route() {
       this.forceRerender();
     }
   }
