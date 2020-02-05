@@ -95,7 +95,7 @@ deploy to production:
       - ./dist
   before_script:
     - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python get-pip.py
-    - pip install awscli --upgrade --user && export PATH=/.local/bin:$PATH
+    - pip install awscli --upgrade --user && export PATH=~/.local/bin:$PATH
     - aws --version
   script:
     - aws s3 ls ${S3_BUCKET}
