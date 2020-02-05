@@ -30,6 +30,13 @@ const remove = id => {
   });
 };
 
+const patch = (id, data) => {
+  return new Promise(async resolve => {
+    const result = await Api.patch(mainRoute, id, data);
+    resolve(result.data);
+  });
+};
+
 const get = id => {
   return new Promise(async resolve => {
     const result = await Api.get(mainRoute, id);
@@ -37,4 +44,4 @@ const get = id => {
   });
 };
 
-export default { fetch, get, put, remove, store };
+export default { fetch, get, put, remove, store, patch };

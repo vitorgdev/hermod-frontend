@@ -12,7 +12,12 @@
       </b-button>
     </template>
     <template v-slot:cell(status)="row">
-      <b-form-checkbox v-model="row.item.status" :name="row.item._id" switch></b-form-checkbox>
+      <b-form-checkbox
+        v-model="row.item.status"
+        :name="row.item._id"
+        switch
+        @change="changeStatus(row)"
+      ></b-form-checkbox>
     </template>
     <template v-slot:cell()="row">
       <i v-if="row.field.fieldType === 'date'">{{ formatDate(row.value, 'DD/MM/YYYY') }}</i>
@@ -37,6 +42,10 @@ export default {
     }
   },
   methods: {
+    changeStatus(row) {
+      this.$emit("changeStatus", row);
+    },
+
     formatDate(value, newFormat) {
       return moment(value).format(newFormat);
     },

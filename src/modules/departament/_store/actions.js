@@ -22,6 +22,11 @@ const remove = async (context, id) => {
   context.commit("REMOVE", result);
 };
 
+const changeStatus = async (context, data) => {
+  const result = await api.patch(data.item._id, { status: !data.value });
+  context.commit("UPDATE", result);
+};
+
 const get = async (context, id) => {
   const result = await api.get(id);
   context.commit("SET", result);
@@ -32,5 +37,6 @@ export default {
   edit,
   get,
   remove,
-  store
+  store,
+  changeStatus
 };
