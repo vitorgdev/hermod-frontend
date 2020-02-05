@@ -1,5 +1,8 @@
+import api from "@/api";
+
 const set = data => {
   localStorage.setItem("token", data);
+  api.init();
 };
 
 const get = () => {
