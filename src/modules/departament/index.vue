@@ -9,12 +9,14 @@
         class="float-right"
         >+</b-button
       >
-      <Table
-        @remove="remove"
-        :refresh="componentKey"
-        :fields="fields"
-        :items="departaments"
-      ></Table>
+      <div>
+        <Table
+          @remove="remove"
+          :key="componentKey"
+          :fields="fields"
+          :items="departaments"
+        ></Table>
+      </div>
       <router-view></router-view>
     </template>
   </Card>
@@ -59,7 +61,6 @@ export default {
   methods: {
     forceRerender() {
       this.componentKey += 1;
-      this.$forceUpdate();
     },
     remove(id) {
       this.$store.dispatch("$_departaments/remove", id);
@@ -81,9 +82,8 @@ export default {
   },
 
   watch: {
-    $route() {
+    $route(newVal, oldVal) {
       this.forceRerender();
-      this.$forceUpdate();
     }
   }
 };
