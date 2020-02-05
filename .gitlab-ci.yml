@@ -12,16 +12,16 @@ stages:
 #     script:
 #         - yarn test:e2e
 
-vulnerabilities check:
-  stage: test
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    policy: push
-    paths:
-      - ./node_modules
-  script:
-    - yarn install
-    - yarn scan
+# vulnerabilities check:
+#   stage: test
+#   cache:
+#     key: ${CI_COMMIT_REF_SLUG}
+#     policy: push
+#     paths:
+#       - ./node_modules
+#   script:
+#     - yarn install
+#     - yarn scan
 
 build hermod: &build
   stage: package
@@ -43,10 +43,50 @@ build hermod: &build
   script:
     - yarn build
 
-deploy to develop: &deploy
+# deploy to develop: &deploy
+#   stage: deploy
+#   variables:
+#     CNAME: develop-hermod.surge.sh
+#     GIT_STRATEGY: none
+#   cache:
+#     key: site-package
+#     policy: pull
+#     paths:
+#       - ./dist
+#   before_script:
+#     - yarn global add surge
+#   script:
+#     - surge --project ./dist --domain ${CNAME}
+#   environment:
+#     name: develop
+#     url: http://${CNAME}
+#   only:
+#     - develop
+
+# deploy to release: &deploy-release
+#   <<: *deploy
+#   variables:
+#     CNAME: $CI_COMMIT_REF_SLUG.hermod.surge.sh
+#   environment:
+#     name: review/$CI_COMMIT_REF_SLUG
+#     on_stop: turnoff
+#   only:
+#     - /^release-.*$/
+
+# turnoff:
+#   <<: *deploy-release
+#   script:
+#     - surge teardown ${CNAME}
+#   when: manual
+#   environment:
+#     name: review/$CI_COMMIT_REF_SLUG
+#     action: stop
+
+deploy to production:
+  image: amazonlinux
   stage: deploy
   variables:
-    CNAME: develop-hermod.surge.sh
+    S3_BUCKET: s3://hermod.s3-website-sa-east-1.amazonaws.com
     GIT_STRATEGY: none
   cache:
     key: site-package
@@ -54,39 +94,16 @@ deploy to develop: &deploy
     paths:
       - ./dist
   before_script:
-    - yarn global add surge
+    - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python get-pip.py
+    - pip install awscli --upgrade --user && export PATH=/.local/bin:$PATH
+    - aws --version
   script:
-    - surge --project ./dist --domain ${CNAME}
-  environment:
-    name: develop
-    url: http://${CNAME}
-  only:
-    - develop
-
-deploy to release: &deploy-release
-  <<: *deploy
-  variables:
-    CNAME: $CI_COMMIT_REF_SLUG.hermod.surge.sh
-  environment:
-    name: review/$CI_COMMIT_REF_SLUG
-    on_stop: turnoff
-  only:
-    - /^release-.*$/
-
-turnoff:
-  <<: *deploy-release
-  script:
-    - surge teardown ${CNAME}
-  when: manual
-  environment:
-    name: review/$CI_COMMIT_REF_SLUG
-    action: stop
-
-deploy to production:
-  <<: *deploy
-  variables:
-    CNAME: hermod.surge.sh
+    - aws s3 ls ${S3_BUCKET}
+    - cd dist && pwd && ls -ltra
+    - aws s3 rm ${S3_BUCKET}/ --recursive
+    - aws s3 cp . ${S3_BUCKET} --acl public-read --recursive
   environment:
     name: production
+    url: http://hermod.s3-website-sa-east-1.amazonaws.com
   only:
     - master
