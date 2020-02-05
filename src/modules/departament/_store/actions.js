@@ -5,10 +5,8 @@ const store = async (context, data) => {
   context.commit("STORE", result);
 };
 
-const list = async context => {
-  const result = await api.fetch();
-  console.log(result);
-
+const list = async (context, filters) => {
+  const result = await api.fetch(filters);
   context.commit("SET_ALL", result.data);
 };
 

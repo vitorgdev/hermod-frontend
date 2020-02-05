@@ -9,9 +9,9 @@ const store = data => {
   });
 };
 
-const fetch = () => {
+const fetch = filters => {
   return new Promise(async resolve => {
-    const result = await Api.query(mainRoute);
+    const result = await Api.query(mainRoute, filters);
     resolve(result.data);
   });
 };
