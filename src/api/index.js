@@ -27,8 +27,11 @@ const Api = {
 
   handleError(error) {
     console.log(error);
+    console.log(error.response);
 
-    const code = error.status ? error.response.status : 0;
+    const code = error.response.status ? error.response.status : 0;
+    console.log(error.status);
+
     let timerInterval = "";
     switch (code) {
       case 500:
@@ -36,7 +39,7 @@ const Api = {
           .fire({
             type: "error",
             title: "Oops...",
-            text: "O Servidor está fora do ar!",
+            text: error.response.data.message,
             timer: 2000,
             customClass: {
               container: "handler-error"
@@ -60,9 +63,9 @@ const Api = {
       case 404:
         swal
           .fire({
-            type: "error",
+            type: "warning",
             title: "Oops...",
-            text: "Pagina não encontrada!",
+            text: error.response.data.message,
             timer: 2000,
             customClass: {
               container: "handler-error"
