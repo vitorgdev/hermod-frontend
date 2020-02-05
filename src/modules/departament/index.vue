@@ -47,7 +47,8 @@ export default {
           key: "createdAt",
           label: "Created At",
           sortable: true,
-          sortDirection: "desc"
+          sortDirection: "desc",
+          fieldType: "date"
         },
         { key: "actions", label: "" }
       ]

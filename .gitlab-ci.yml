@@ -5,12 +5,12 @@ stages:
   - package
   - deploy
 
-test:
-    stage: test
-    before_script:
-        - yarn install
-    script:
-        - yarn test:e2e
+# test:
+#     stage: test
+#     before_script:
+#         - yarn install
+#     script:
+#         - yarn test:e2e
 
 vulnerabilities check:
   stage: test
