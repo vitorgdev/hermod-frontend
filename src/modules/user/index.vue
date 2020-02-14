@@ -13,14 +13,6 @@
                 placeholder="Enter your name"
               ></b-form-input>
             </b-col>
-            <b-col md="5">
-              <label for="inline-form-input-name">Initials:</label>
-              <b-form-input
-                id="inline-form-input-name"
-                v-model="filters.initials"
-                placeholder="Enter your name"
-              ></b-form-input>
-            </b-col>
             <b-col md="2">
               <label for="inline-form-input-name">Status:</label>
               <b-form-checkbox
