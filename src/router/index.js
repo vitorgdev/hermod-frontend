@@ -44,6 +44,25 @@ export default new Router({
       ]
     },
     {
+      path: "/users",
+      name: "user",
+      component: () => import("@/modules/user"),
+      children: [
+        {
+          path: ":id/edit",
+          component: () => import("@/modules/user/_components/edit")
+        },
+        {
+          path: "create",
+          component: () => import("@/modules/user/_components/create")
+        },
+        {
+          path: ":id/view",
+          component: () => import("@/modules/user/_components/view")
+        }
+      ]
+    },
+    {
       path: "/atendimentos",
       name: "atendimentos",
       component: () => import("@/views/Atendimento.vue")

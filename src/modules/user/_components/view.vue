@@ -7,22 +7,22 @@
       title="Edição de Curso"
       @hidden="resetModal"
     >
-      <b-row v-if="user.code == 'FOUND'">
+      <b-row v-if="user.statusCode == 200">
         <b-col md="12">
-          <label for="input-live">Departament:</label>
+          <label for="input-live">Name:</label>
           <b-form-input
             disabled
-            v-model="departament.data.name"
+            v-model="user.data.name"
             placeholder="Enter your name"
           ></b-form-input>
         </b-col>
 
         <b-col md="6">
-          <label for="input-live">Initials:</label>
+          <label for="input-live">Username:</label>
           <b-form-input
             disabled
-            v-model="departament.data.initials"
-            placeholder="Enter your name"
+            v-model="user.data.username"
+            placeholder="Enter your Username"
           ></b-form-input>
         </b-col>
 
@@ -30,8 +30,7 @@
           <label for="input-live">Status:</label>
           <b-form-checkbox
             disabled
-            v-model="departament.data.status"
-            :name="departament.data._id"
+            v-model="user.data.status"
             switch
           ></b-form-checkbox>
         </b-col>
@@ -48,16 +47,14 @@ export default {
       modalShow: false
     };
   },
-  computed: { ...mapGetters({ departament: "$_departaments/departament" }) },
+  computed: { ...mapGetters({ user: "$_users/user" }) },
   mounted() {
-    this.$store.dispatch("$_departaments/get", this.$route.params.id);
+    this.$store.dispatch("$_users/get", this.$route.params.id);
     this.modalShow = true;
   },
   methods: {
     resetModal() {
-      this.$router.push("/departaments");
-      this.name = "";
-      this.nameState = null;
+      this.$router.push("/users");
     }
   }
 };

@@ -78,7 +78,7 @@ export default {
         },
         {
           name: "Usuário",
-          route: "/usuarios"
+          route: "/users"
         },
         {
           name: "Painel",
