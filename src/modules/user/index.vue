@@ -39,7 +39,7 @@
       </template>
     </Card>
     <Card>
-      <template slot="title">Departament View</template>
+      <template slot="title">User View</template>
       <template slot="text">
         <b-button
           @click="create"
@@ -54,7 +54,7 @@
             @changeStatus="changeStatus"
             :key="componentKey"
             :fields="fields"
-            :items="departaments"
+            :items="users"
           ></Table>
         </div>
         <router-view></router-view>
@@ -69,8 +69,8 @@ import Table from "../../components/ui/Table";
 import Card from "../../components/ui/Card";
 
 export default {
-  name: "DepartamentModule",
-  computed: { ...mapGetters({ departaments: "$_departaments/departaments" }) },
+  name: "UserModule",
+  computed: { ...mapGetters({ users: "$_users/users" }) },
   data: function() {
     return {
       filters: {
@@ -83,10 +83,8 @@ export default {
         { key: "status", label: "Status" },
         { key: "name", label: "Name" },
         {
-          key: "initials",
-          label: "Initials",
-          sortable: true,
-          class: "text-center"
+          key: "username",
+          label: "Username"
         },
         {
           key: "createdAt",
@@ -113,17 +111,17 @@ export default {
           filledFilters[key] = this.filters[key];
         }
       }
-      this.$router.push({ name: "departament", query: filledFilters });
-      this.$store.dispatch("$_departaments/list", filledFilters);
+      this.$router.push({ name: "user", query: filledFilters });
+      this.$store.dispatch("$_users/list", filledFilters);
     },
     forceRerender() {
       this.componentKey += 1;
     },
     remove(id) {
-      this.$store.dispatch("$_departaments/remove", id);
+      this.$store.dispatch("$_users/remove", id);
     },
     changeStatus(row) {
-      this.$store.dispatch("$_departaments/changeStatus", row);
+      this.$store.dispatch("$_users/changeStatus", row);
     },
     create() {
       this.$router.push({ path: `${this.$route.path}/create` });
@@ -131,14 +129,14 @@ export default {
   },
 
   created() {
-    const STORE_KEY = "$_departaments";
+    const STORE_KEY = "$_users";
     if (!(STORE_KEY in this.$store._modules.root._children)) {
       this.$store.registerModule(STORE_KEY, store);
     }
   },
 
   mounted() {
-    this.$store.dispatch("$_departaments/list");
+    this.$store.dispatch("$_users/list");
   },
 
   watch: {
