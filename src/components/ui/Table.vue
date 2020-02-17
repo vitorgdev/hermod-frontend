@@ -1,5 +1,18 @@
 <template>
-  <b-table ref="table" small hover :fields="fields" :items="items">
+  <b-table
+    ref="table"
+    :busy="items.length > 0 ? false : true"
+    small
+    hover
+    :fields="fields"
+    :items="items"
+  >
+    <template v-slot:table-busy>
+      <div class="text-center text-danger my-2">
+        <b-spinner class="align-middle"></b-spinner>
+        <strong>Loading...</strong>
+      </div>
+    </template>
     <template v-slot:cell(actions)="row">
       <b-button
         size="sm"
@@ -47,6 +60,7 @@ import swal from "sweetalert2";
 export default {
   data() {
     return {
+      isBusy: true,
       selected: []
     };
   },
