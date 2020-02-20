@@ -9,4 +9,11 @@ const store = data => {
   });
 };
 
-export default { store };
+const fetch = data => {
+  return new Promise(async resolve => {
+    const result = await Api.query("users", data);
+    resolve(result.data);
+  });
+};
+
+export default { store, fetch };

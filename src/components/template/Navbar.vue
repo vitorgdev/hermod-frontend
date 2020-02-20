@@ -14,18 +14,18 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto" v-if="userLoggedIn.hasOwnProperty('profile')">
           <li
-            v-for="(feature, index) in features"
+            v-for="(feature, index) in userLoggedIn.profile.profileModule"
             :key="index"
             class="nav-item"
           >
             <router-link
-              :to="feature.route"
+              :to="feature.module.route"
               class="nav-link"
               :class="index != 0 ? 'ml-5' : ''"
               href="#"
-              >{{ feature.name }}</router-link
+              >{{ feature.module.name }}</router-link
             >
           </li>
         </ul>
@@ -60,7 +60,10 @@
   </nav>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
+  name: "Navbar",
+  computed: { ...mapGetters({ userLoggedIn: "$_auth/userLoggedIn" }) },
   data: function() {
     return {
       features: [
@@ -86,7 +89,13 @@ export default {
         }
       ]
     };
-  }
+  },
+  created() {
+    const STORE_KEY = "$_auth";
+    if (!(STORE_KEY in this.$store._modules.root._children)) {
+      this.$store.registerModule(STORE_KEY, store);
+    }
+  },
 };
 </script>
 <style lang="scss">

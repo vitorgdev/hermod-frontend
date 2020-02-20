@@ -10,9 +10,13 @@
   </div>
 </template>
 <script>
+import store from "./modules/auth/_store";
 import NavBar from "@/components/template/Navbar";
 import Footer from "@/components/template/Footer";
+import jwt from "@/api/jwt";
+import { mapGetters } from "vuex";
 export default {
+  computed: { ...mapGetters({ userLoggedIn: "$_auth/userLoggedIn" }) },
   data() {
     return {
       blank: true
@@ -29,6 +33,15 @@ export default {
       } else {
         this.blank = false;
       }
+    }
+  },
+  async created() {
+    const STORE_KEY = "$_auth";
+    if (!(STORE_KEY in this.$store._modules.root._children)) {
+      this.$store.registerModule(STORE_KEY, store);
+    }
+    if (jwt.get()) {
+      await this.$store.dispatch("$_auth/check", {token: jwt.get()});
     }
   }
 };
