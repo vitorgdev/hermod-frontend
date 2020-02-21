@@ -1,9 +1,11 @@
 import Vue from "vue";
 import Router from "vue-router";
 
+import auth from "./middleware/auth";
+
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
@@ -22,12 +24,18 @@ export default new Router({
     {
       path: "/queue",
       name: "queue",
-      component: () => import("@/modules/queue")
+      component: () => import("@/modules/queue"),
+      meta: {
+        middleware: [auth]
+      }
     },
     {
       path: "/departaments",
       name: "departament",
       component: () => import("@/modules/departament"),
+      meta: {
+        middleware: [auth]
+      },
       children: [
         {
           path: ":id/edit",
@@ -47,6 +55,9 @@ export default new Router({
       path: "/users",
       name: "user",
       component: () => import("@/modules/user"),
+      meta: {
+        middleware: [auth]
+      },
       children: [
         {
           path: ":id/edit",
@@ -69,3 +80,36 @@ export default new Router({
     }
   ]
 });
+
+function nextFactory(context, middleware, index) {
+  const subsequentMiddleware = middleware[index];
+  if (!subsequentMiddleware) return context.next;
+
+  return (...parameters) => {
+    context.next(...parameters);
+    const nextMiddleware = nextFactory(context, middleware, index + 1);
+    subsequentMiddleware({ ...context, next: nextMiddleware });
+  };
+}
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.middleware) {
+    const middleware = Array.isArray(to.meta.middleware)
+      ? to.meta.middleware
+      : [to.meta.middleware];
+
+    const context = {
+      from,
+      next,
+      router,
+      to
+    };
+    const nextMiddleware = nextFactory(context, middleware, 1);
+
+    return middleware[0]({ ...context, next: nextMiddleware });
+  }
+
+  return next();
+});
+
+export default router;

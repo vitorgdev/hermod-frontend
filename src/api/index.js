@@ -26,12 +26,7 @@ const Api = {
   },
 
   handleError(error) {
-    console.log(error);
-    console.log(error.response);
-
     const code = error.response.status ? error.response.status : 0;
-    console.log(error.status);
-
     let timerInterval = "";
     switch (code) {
       case 500:
