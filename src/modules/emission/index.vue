@@ -57,8 +57,6 @@ export default {
       this.searchedCourses = this.courses.docs.filter(en => {
         return en.name.toLowerCase().includes(e.target.value.toLowerCase());
       });
-      console.log(this.searchedCourses);
-      console.log(e);
     },
     async generateNumber(e) {
       swal

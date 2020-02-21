@@ -41,7 +41,11 @@ export default {
       this.$store.registerModule(STORE_KEY, store);
     }
     if (jwt.get()) {
-      await this.$store.dispatch("$_auth/check", { token: jwt.get() });
+      try {
+        await this.$store.dispatch("$_auth/check", { token: jwt.get() });
+      } catch (error) {
+        this.$router.push("/auth");
+      }
     }
   }
 };

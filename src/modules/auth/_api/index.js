@@ -10,9 +10,13 @@ const store = data => {
 };
 
 const fetch = data => {
-  return new Promise(async resolve => {
-    const result = await Api.query("check", data);
-    resolve(result.data);
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await Api.query("check", data);
+      resolve(result.data);
+    } catch (error) {
+      reject(error);
+    }
   });
 };
 
