@@ -11,7 +11,7 @@ const store = data => {
 
 const fetch = data => {
   return new Promise(async resolve => {
-    const result = await Api.query("users", data);
+    const result = await Api.query("check", data);
     resolve(result.data);
   });
 };

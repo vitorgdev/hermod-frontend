@@ -14,7 +14,10 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto" v-if="userLoggedIn.hasOwnProperty('profile')">
+        <ul
+          class="navbar-nav mr-auto"
+          v-if="userLoggedIn.hasOwnProperty('profile')"
+        >
           <li
             v-for="(feature, index) in userLoggedIn.profile.profileModule"
             :key="index"
@@ -95,7 +98,7 @@ export default {
     if (!(STORE_KEY in this.$store._modules.root._children)) {
       this.$store.registerModule(STORE_KEY, store);
     }
-  },
+  }
 };
 </script>
 <style lang="scss">
